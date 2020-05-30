@@ -1,0 +1,17 @@
+{
+  "name": "TDD",
+  "version": "1.0.0",
+  "description": "API completa com Typescript utilizando TDD",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mmmacedo/TDD.git"
+  },
+  "keywords": [],
+  "author": "mmmacedo",
+  "license": "ISC",
+  "homepage": "https://github.com/mmmacedo/TDD#readme"
+}
