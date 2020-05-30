@@ -16,5 +16,9 @@
   "homepage": "https://github.com/mmmacedo/TDD#readme",
   "dependencies": {
     "git-commit-msg-linter": "^2.4.2"
+  },
+  "devDependencies": {
+    "@types/node": "^14.0.6",
+    "typescript": "^3.9.3"
   }
 }
