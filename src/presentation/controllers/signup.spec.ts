@@ -1,9 +1,7 @@
 // sut = System Under Test
 import { SignUpController } from '@/presentation/controllers/signup'
-import { MissingParamError } from '@/presentation/errors/missingParamError'
-import { InvalidEmailError } from '@/presentation/errors/invalidEmailError'
+import { MissingParamError, InvalidEmailError, ServerError } from '@/presentation/errors'
 import { EmailValidator } from '@/presentation/protocols/email-validator'
-import { ServerError } from '@/presentation/errors/serverError'
 
 interface SutTypes {
   sut: SignUpController
