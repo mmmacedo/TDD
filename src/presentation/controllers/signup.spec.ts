@@ -139,4 +139,23 @@ describe('SignUp Controller', () => {
     expect(httpResponse.statusCode).toBe(500)
     expect(httpResponse.body).toEqual(new ServerError())
   })
+
+  // outra forma de fazer o teste, mocando a implementação
+  test('Should return 500 if EmailValidator throws', () => {
+    const { sut, emailValidatorStub } = makeSut()
+    const isValidSpy = jest.spyOn(emailValidatorStub, 'isValid').mockImplementation(() => {
+      throw new Error()
+    })
+    const email = 'any_email@mail.com'
+    const httpRequest = {
+      body: {
+        name: 'any_name',
+        email: email,
+        password: 'any_passoword',
+        confirmPassword: 'any_passoword'
+      }
+    }
+    sut.handle(httpRequest)
+    expect(isValidSpy).toHaveBeenCalledWith(email)
+  })
 })
