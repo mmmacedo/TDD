@@ -1,6 +1,6 @@
 // sut = System Under Test
 import { SignUpController } from '@/presentation/controllers/signup'
-import { MissingParamError, InvalidEmailError, ServerError } from '@/presentation/errors'
+import { MissingParamError, InvalidEmailError, ServerError, InvalidPasswordConfirmationError } from '@/presentation/errors'
 import { EmailValidator } from '@/presentation/protocols'
 
 interface SutTypes {
@@ -157,5 +157,20 @@ describe('SignUp Controller', () => {
     }
     sut.handle(httpRequest)
     expect(isValidSpy).toHaveBeenCalledWith(email)
+  })
+
+  test('Should return an error if password confirmation fail', () => {
+    const { sut } = makeSut()
+    const httpRequest = {
+      body: {
+        name: 'any_name',
+        email: 'any_email@mail.com',
+        password: 'any_passoword',
+        confirmPassword: 'other_passoword'
+      }
+    }
+    const httpResponse = sut.handle(httpRequest)
+    expect(httpResponse.statusCode).toBe(400)
+    expect(httpResponse.body).toEqual(new InvalidPasswordConfirmationError())
   })
 })
