@@ -1,6 +1,6 @@
 import { badRequest, serverError } from '@/presentation/helpers/http-helper'
 import { HttpRequest, HttpResponse, Controller, EmailValidator } from '@/presentation/protocols'
-import { MissingParamError, InvalidEmailError } from '@/presentation/errors'
+import { MissingParamError, InvalidEmailError, InvalidPasswordConfirmationError } from '@/presentation/errors'
 
 export class SignUpController implements Controller {
   private readonly emailValidator: EmailValidator
@@ -21,6 +21,10 @@ export class SignUpController implements Controller {
 
       if (!this.emailValidator.isValid(httpRequest.body.email)) {
         return badRequest(new InvalidEmailError('email'))
+      }
+
+      if (httpRequest.body.password !== httpRequest.body.confirmPassword) {
+        return badRequest(new InvalidPasswordConfirmationError())
       }
     } catch (e) {
       console.error(e)
