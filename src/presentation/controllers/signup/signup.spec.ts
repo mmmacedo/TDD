@@ -15,6 +15,7 @@ const makeEmailValidator = (): EmailValidator => {
       return true
     }
   }
+
   return new EmailValidatorStub()
 }
 
@@ -24,6 +25,7 @@ const makeEmailValidatorWithError = (): EmailValidator => {
       throw new Error()
     }
   }
+
   return new EmailValidatorStub()
 }
 
@@ -32,9 +34,7 @@ const makeSut = (): SutTypes => {
   const addAccountStub = makeAddAccount()
   const sut = new SignUpController(emailValidatorStub, addAccountStub)
   return {
-    sut,
-    emailValidatorStub,
-    addAccountStub
+    sut, emailValidatorStub, addAccountStub
   }
 }
 
@@ -42,14 +42,12 @@ const makeAddAccount = (): AddAccount => {
   class AddAccountStub implements AddAccount {
     add (account: AddAccountModel): AccountModel {
       const fakeAccount = {
-        id: 'validId',
-        name: 'valid Name',
-        email: 'valid@email.com',
-        password: 'valid_password'
+        id: 'validId', name: 'valid Name', email: 'valid@email.com', password: 'valid_password'
       }
       return fakeAccount
     }
   }
+
   return new AddAccountStub()
 }
 
@@ -58,9 +56,7 @@ describe('SignUp Controller', () => {
     const { sut } = makeSut()
     const httpRequest = {
       body: {
-        email: 'any_email@mail.com',
-        password: 'any_passoword',
-        confirmPassword: 'any_passoword'
+        email: 'any_email@mail.com', password: 'any_passoword', confirmPassword: 'any_passoword'
       }
     }
     const httpResponse = sut.handle(httpRequest)
@@ -72,9 +68,7 @@ describe('SignUp Controller', () => {
     const { sut } = makeSut()
     const httpRequest = {
       body: {
-        name: 'any_name',
-        password: 'any_passoword',
-        confirmPassword: 'any_passoword'
+        name: 'any_name', password: 'any_passoword', confirmPassword: 'any_passoword'
       }
     }
     const httpResponse = sut.handle(httpRequest)
@@ -86,9 +80,7 @@ describe('SignUp Controller', () => {
     const { sut } = makeSut()
     const httpRequest = {
       body: {
-        name: 'any_name',
-        email: 'any_email@mail.com',
-        confirmPassword: 'any_passoword'
+        name: 'any_name', email: 'any_email@mail.com', confirmPassword: 'any_passoword'
       }
     }
     const httpResponse = sut.handle(httpRequest)
@@ -100,9 +92,7 @@ describe('SignUp Controller', () => {
     const { sut } = makeSut()
     const httpRequest = {
       body: {
-        name: 'any_name',
-        email: 'any_email@mail.com',
-        password: 'any_passoword'
+        name: 'any_name', email: 'any_email@mail.com', password: 'any_passoword'
       }
     }
     const httpResponse = sut.handle(httpRequest)
@@ -115,10 +105,7 @@ describe('SignUp Controller', () => {
     jest.spyOn(emailValidatorStub, 'isValid').mockReturnValueOnce(false)
     const httpRequest = {
       body: {
-        name: 'any_name',
-        email: 'any_email@mail.com',
-        password: 'any_passoword',
-        confirmPassword: 'any_passoword'
+        name: 'any_name', email: 'any_email@mail.com', password: 'any_passoword', confirmPassword: 'any_passoword'
       }
     }
     const httpResponse = sut.handle(httpRequest)
@@ -132,10 +119,7 @@ describe('SignUp Controller', () => {
     const email = 'any_email@mail.com'
     const httpRequest = {
       body: {
-        name: 'any_name',
-        email: email,
-        password: 'any_passoword',
-        confirmPassword: 'any_passoword'
+        name: 'any_name', email: email, password: 'any_passoword', confirmPassword: 'any_passoword'
       }
     }
     sut.handle(httpRequest)
@@ -147,10 +131,7 @@ describe('SignUp Controller', () => {
     const sut = new SignUpController(emailValidatorStub, null)
     const httpRequest = {
       body: {
-        name: 'any_name',
-        email: 'any_email@mail.com',
-        password: 'any_passoword',
-        confirmPassword: 'any_passoword'
+        name: 'any_name', email: 'any_email@mail.com', password: 'any_passoword', confirmPassword: 'any_passoword'
       }
     }
     const httpResponse = sut.handle(httpRequest)
@@ -167,10 +148,7 @@ describe('SignUp Controller', () => {
     const email = 'any_email@mail.com'
     const httpRequest = {
       body: {
-        name: 'any_name',
-        email: email,
-        password: 'any_passoword',
-        confirmPassword: 'any_passoword'
+        name: 'any_name', email: email, password: 'any_passoword', confirmPassword: 'any_passoword'
       }
     }
     sut.handle(httpRequest)
@@ -181,10 +159,7 @@ describe('SignUp Controller', () => {
     const { sut } = makeSut()
     const httpRequest = {
       body: {
-        name: 'any_name',
-        email: 'any_email@mail.com',
-        password: 'any_passoword',
-        confirmPassword: 'other_passoword'
+        name: 'any_name', email: 'any_email@mail.com', password: 'any_passoword', confirmPassword: 'other_passoword'
       }
     }
     const httpResponse = sut.handle(httpRequest)
@@ -198,17 +173,12 @@ describe('SignUp Controller', () => {
 
     const httpRequest = {
       body: {
-        name: 'any_name',
-        email: 'any_email@mail.com',
-        password: 'any_passoword',
-        confirmPassword: 'any_passoword'
+        name: 'any_name', email: 'any_email@mail.com', password: 'any_passoword', confirmPassword: 'any_passoword'
       }
     }
     sut.handle(httpRequest)
     expect(isValidSpy).toHaveBeenCalledWith({
-      name: 'any_name',
-      email: 'any_email@mail.com',
-      password: 'any_passoword'
+      name: 'any_name', email: 'any_email@mail.com', password: 'any_passoword'
     })
   })
 
@@ -219,14 +189,25 @@ describe('SignUp Controller', () => {
     })
     const httpRequest = {
       body: {
-        name: 'any_name',
-        email: 'any_email@mail.com',
-        password: 'any_passoword',
-        confirmPassword: 'any_passoword'
+        name: 'any_name', email: 'any_email@mail.com', password: 'any_passoword', confirmPassword: 'any_passoword'
       }
     }
     const httpResponse = sut.handle(httpRequest)
     expect(httpResponse.statusCode).toBe(500)
     expect(httpResponse.body).toEqual(new ServerError())
+  })
+
+  test('Should return 500 if valid data is provided', () => {
+    const { sut } = makeSut()
+    const httpRequest = {
+      body: {
+        name: 'valid_name', email: 'valid_email@mail.com', password: 'valid_passoword', confirmPassword: 'valid_passoword'
+      }
+    }
+    const httpResponse = sut.handle(httpRequest)
+    expect(httpResponse.statusCode).toBe(200)
+    expect(httpResponse.body).toEqual({
+      id: 'validId', name: 'valid Name', email: 'valid@email.com', password: 'valid_password'
+    })
   })
 })
