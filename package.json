@@ -1,10 +1,10 @@
 {
   "name": "clean-node-api",
   "version": "2.5.3",
-  "description": "NodeJs Rest API using TDD, Clean Architecture and Typescript",
-  "author": "Rodrigo Manguinho",
+  "description": "API completa com Typescript utilizando TDD",
+  "author": "mmmacedo",
   "license": "GPL-3.0-or-later",
-  "repository": "github:rmanguinho/clean-ts-api",
+  "repository": "https://github.com/mmmacedo/TDD",
   "scripts": {
     "start": "node dist/main/server.js",
     "build": "rimraf dist && tsc -p tsconfig-build.json",
