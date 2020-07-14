@@ -1,6 +1,6 @@
-import app from '@/main/config/app'
+import app from '../../main/config/app'
 import request from 'supertest'
-import { MongoHelper } from '@/infra/db/mongodb/helper/mongo-helper'
+import { MongoHelper } from '../../infra/db/mongodb/helper/mongo-helper'
 
 describe('Signup Routes', () => {
   beforeAll(async () => {
@@ -19,12 +19,7 @@ describe('Signup Routes', () => {
   test('Should return 200 on success', async () => {
     await request(app)
       .post('/api/signup')
-      .send({
-        name: 'Murilo',
-        email: 'murilo.macedo@yahoo.com.br',
-        password: '123',
-        passwordConfirmation: '123'
-      })
+      .send({ name: 'valid_name', email: 'valid_email@mail.com', password: 'valid_passoword', confirmPassword: 'valid_passoword' })
       .expect(200)
   })
 })
