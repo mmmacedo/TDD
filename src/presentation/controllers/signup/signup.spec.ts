@@ -1,7 +1,7 @@
 // sut = System Under Test
-import { SignUpController } from '@/presentation/controllers/signup/signup'
-import { MissingParamError, InvalidEmailError, ServerError, InvalidPasswordConfirmationError } from '@/presentation/errors'
-import { EmailValidator, AccountModel, AddAccount, AddAccountModel } from '@/presentation/controllers/signup/signup-protocols'
+import { SignUpController } from '../../../presentation/controllers/signup/signup'
+import { MissingParamError, InvalidEmailError, ServerError, InvalidPasswordConfirmationError } from '../../../presentation/errors'
+import { EmailValidator, AccountModel, AddAccount, AddAccountModel } from '../../../presentation/controllers/signup/signup-protocols'
 
 interface SutTypes {
   sut: SignUpController
@@ -197,7 +197,7 @@ describe('SignUp Controller', () => {
     expect(httpResponse.body).toEqual(new ServerError())
   })
 
-  test('Should return 500 if valid data is provided', async () => {
+  test('Should return 200 if valid data is provided', async () => {
     const { sut } = makeSut()
     const httpRequest = {
       body: {

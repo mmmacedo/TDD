@@ -1,5 +1,5 @@
 import { Collection, MongoClient } from 'mongodb'
-import { DefaultModel } from '@/domain/models/default-model'
+import { DefaultModel } from '../../../../domain/models/default-model'
 
 export const MongoHelper = {
   client: null as MongoClient,
