@@ -3,6 +3,7 @@ import { DefaultModel } from '../../../../domain/models/default-model'
 
 export const MongoHelper = {
   client: null as MongoClient,
+  uri: null as String,
 
   async connect (uri: string): Promise<void> {
     this.uri = uri
@@ -13,10 +14,16 @@ export const MongoHelper = {
   },
 
   async disconnect (): Promise<void> {
-    await this.client.close()
+    if (this.client) {
+      await this.client.close()
+      this.client = null
+    }
   },
 
-  getCollection (name: string): Collection {
+  async getCollection (name: string): Promise<Collection> {
+    if (!this.client?.isConnected()) {
+      await this.connect(this.uri)
+    }
     return this.client.db().collection(name)
   },
 
