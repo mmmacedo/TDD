@@ -1,6 +1,6 @@
 // sut = System Under Test
 import { SignUpController } from '../../../presentation/controllers/signup/signup'
-import { MissingParamError, InvalidEmailError, ServerError, InvalidPasswordConfirmationError } from '../../../presentation/errors'
+import { MissingParamError, InvalidEmailError, InvalidPasswordConfirmationError } from '../../../presentation/errors'
 import { EmailValidator, AccountModel, AddAccount, AddAccountModel } from '../../../presentation/controllers/signup/signup-protocols'
 
 interface SutTypes {
@@ -136,7 +136,6 @@ describe('SignUp Controller', () => {
     }
     const httpResponse = await sut.handle(httpRequest)
     expect(httpResponse.statusCode).toBe(500)
-    expect(httpResponse.body).toEqual(new ServerError())
   })
 
   // outra forma de fazer o teste, mocando a implementação
@@ -194,7 +193,6 @@ describe('SignUp Controller', () => {
     }
     const httpResponse = await sut.handle(httpRequest)
     expect(httpResponse.statusCode).toBe(500)
-    expect(httpResponse.body).toEqual(new ServerError())
   })
 
   test('Should return 200 if valid data is provided', async () => {
