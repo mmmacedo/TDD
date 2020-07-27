@@ -14,15 +14,17 @@ const makeSut = (): SutTypes => {
   }
 }
 
+const mockedResponse = {
+  statusCode: 200,
+  body: {
+    name: 'Murilo'
+  }
+}
+
 const makeControllerStub = (): Controller => {
   class ControllerStub implements Controller {
     async handle (httpRequest: HttpRequest): Promise<HttpResponse> {
-      const httpResponse: HttpResponse = {
-        statusCode: 200,
-        body: {
-          name: 'Murilo'
-        }
-      }
+      const httpResponse: HttpResponse = mockedResponse
       return new Promise(resolve => resolve(httpResponse))
     }
   }
@@ -42,5 +44,19 @@ describe('', () => {
     }
     await sut.handle(httpRequest)
     expect(handleSpy).toBeCalledWith(httpRequest)
+  })
+
+  test('Should call controller handle', async () => {
+    const { sut } = makeSut()
+    const httpRequest: HttpRequest = {
+      body: {
+        name: 'any_name',
+        email: 'valid_email@valid.com',
+        password: 'valid_password',
+        passwordConfirmation: 'valid_password'
+      }
+    }
+    const response = await sut.handle(httpRequest)
+    expect(response).toEqual(mockedResponse)
   })
 })
